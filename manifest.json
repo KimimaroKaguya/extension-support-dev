@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "LocalStorage & API Helper",
+  "version": "1.0.0",
+  "description": "ดึงค่า LocalStorage และยิง API พร้อม Copy ค่าได้",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "permissions": [
+    "activeTab",
+    "storage",
+    "scripting"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ]
+}

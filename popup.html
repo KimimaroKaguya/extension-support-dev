@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalStorage & API Helper</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🔧 Dev Helper</h1>
+            <p class="subtitle">LocalStorage & API Tool</p>
+        </header>
+
+        <!-- Tab Navigation -->
+        <nav class="tab-nav">
+            <button class="tab-btn active" data-tab="localStorage">
+                💾 LocalStorage
+            </button>
+            <button class="tab-btn" data-tab="api">
+                🌐 API
+            </button>
+        </nav>
+
+        <!-- LocalStorage Tab -->
+        <section id="localStorage-tab" class="tab-content active">
+            <!-- Saved Keys Dropdown -->
+            <div class="form-group">
+                <label for="savedKeySelect">🔖 เลือก Key ที่บันทึกไว้</label>
+                <div class="input-with-btn">
+                    <select id="savedKeySelect">
+                        <option value="">-- เลือกหรือพิมพ์ใหม่ --</option>
+                    </select>
+                    <button id="deleteSelectedKey" class="btn btn-icon" title="ลบ Key นี้">🗑️</button>
+                </div>
+            </div>
+
+            <!-- Manual Key Input -->
+            <div class="form-group">
+                <label for="storageKey">หรือพิมพ์ Key Name</label>
+                <div class="input-with-btn">
+                    <input type="text" id="storageKey" placeholder="เช่น techserv-oauth-user">
+                    <button id="saveCurrentKey" class="btn btn-icon" title="บันทึก Key">💾</button>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button id="getStorage" class="btn btn-primary">
+                    🔍 ดึงค่า
+                </button>
+                <button id="getAllStorage" class="btn btn-secondary">
+                    📋 ดึงทั้งหมด
+                </button>
+            </div>
+
+            <!-- Property Selector (shown after fetch) -->
+            <div id="propertySelector" class="property-selector" style="display: none;">
+                <div class="form-group">
+                    <label for="propertySelect">🎯 เลือก Property ที่ต้องการ</label>
+                    <select id="propertySelect">
+                        <option value="__ALL__">📦 แสดงทั้งหมด</option>
+                    </select>
+                </div>
+                <div class="button-group">
+                    <button id="copySelectedProperty" class="btn btn-copy-large">
+                        📋 Copy ค่าที่เลือก
+                    </button>
+                </div>
+            </div>
+
+            <div class="result-section">
+                <div class="result-header">
+                    <span id="storageResultLabel">ผลลัพธ์</span>
+                    <button id="copyStorage" class="btn btn-copy" title="Copy">
+                        📋 Copy All
+                    </button>
+                </div>
+                <pre id="storageResult" class="result-box">รอผลลัพธ์...</pre>
+            </div>
+        </section>
+
+        <!-- API Tab -->
+        <section id="api-tab" class="tab-content">
+            <div class="form-group">
+                <label for="apiMethod">Method</label>
+                <select id="apiMethod">
+                    <option value="GET">GET</option>
+                    <option value="POST">POST</option>
+                    <option value="PUT">PUT</option>
+                    <option value="DELETE">DELETE</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="apiEndpoint">Endpoint URL</label>
+                <input type="text" id="apiEndpoint" placeholder="https://api.example.com/data">
+            </div>
+
+            <div class="form-group">
+                <label for="apiHeaders">Headers (JSON)</label>
+                <textarea id="apiHeaders" rows="2" placeholder='{"Authorization": "Bearer token"}'></textarea>
+            </div>
+
+            <div class="form-group" id="bodyGroup">
+                <label for="apiBody">Body (JSON)</label>
+                <textarea id="apiBody" rows="3" placeholder='{"key": "value"}'></textarea>
+            </div>
+
+            <div class="button-group">
+                <button id="sendApi" class="btn btn-primary">
+                    🚀 ส่ง Request
+                </button>
+            </div>
+
+            <div class="result-section">
+                <div class="result-header">
+                    <span id="apiStatusText">ผลลัพธ์</span>
+                    <button id="copyApi" class="btn btn-copy" title="Copy">
+                        📋 Copy
+                    </button>
+                </div>
+                <pre id="apiResult" class="result-box">รอผลลัพธ์...</pre>
+            </div>
+
+            <!-- Saved Endpoints Section -->
+            <div class="saved-section">
+                <div class="saved-header">
+                    <span>🔖 Endpoints ที่บันทึกไว้</span>
+                    <button id="saveCurrentEndpoint" class="btn btn-small">+ บันทึก Endpoint</button>
+                </div>
+                <div id="savedEndpoints" class="saved-list"></div>
+            </div>
+        </section>
+
+        <!-- Toast Notification -->
+        <div id="toast" class="toast"></div>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+
+</html>
