@@ -1,0 +1,49 @@
+/* ==================== FANTASY FOREST THEME ==================== */
+/* Ghibli-inspired: Warm, organic, nature-inspired colors */
+
+[data-theme="fantasy-forest"] {
+  --bg-primary: #1a2f1a;
+  --bg-secondary: #243524;
+  --bg-tertiary: #2d4a2d;
+  --bg-card: rgba(30, 50, 30, 0.8);
+  --bg-card-hover: rgba(40, 65, 40, 0.9);
+  
+  --accent-primary: #90b77d;
+  --accent-primary-rgb: 144, 183, 125;
+  --accent-secondary: #d4a574;
+  --accent-secondary-rgb: 212, 165, 116;
+  
+  --text-primary: #f5f0e6;
+  --text-secondary: rgba(245, 240, 230, 0.85);
+  --text-muted: rgba(245, 240, 230, 0.5);
+  
+  --error-color: #e07a5f;
+  --success-color: #90b77d;
+  
+  --border-color: rgba(144, 183, 125, 0.3);
+  --border-accent: #90b77d;
+  
+  --shadow-glow-primary: 0 4px 20px rgba(144, 183, 125, 0.15);
+  --shadow-glow-secondary: 0 4px 20px rgba(212, 165, 116, 0.1);
+  
+  --font-primary: 'Nunito', 'Quicksand', 'Segoe UI', sans-serif;
+  --font-mono: 'Fira Code', 'Monaco', monospace;
+  
+  /* Font Sizes */
+  --font-size-title: 1.35rem;
+  --font-size-subtitle: 0.75rem;
+  --font-size-base: 0.8rem;
+  --font-size-small: 0.7rem;
+  --font-size-button: 0.8rem;
+  --font-size-label: 0.75rem;
+  --font-size-input: 0.8rem;
+  --font-size-code: 0.72rem;
+  
+  /* Spacing */
+  --padding-input: 8px 10px;
+  --padding-button: 8px 14px;
+  --padding-tab: 8px 12px;
+  
+  --border-radius: 10px;
+  --transition-speed: 0.35s;
+}

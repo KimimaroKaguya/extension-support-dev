@@ -1,0 +1,50 @@
+/* ==================== CYBERPUNK THEME ==================== */
+/* Colors: Black (#0a0a0a), Yellow (#f7d000), Cyan (#00f0ff) */
+
+:root,
+[data-theme="cyberpunk"] {
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #0d0d0d;
+  --bg-tertiary: #111111;
+  --bg-card: rgba(0, 0, 0, 0.6);
+  --bg-card-hover: rgba(0, 0, 0, 0.8);
+  
+  --accent-primary: #f7d000;
+  --accent-primary-rgb: 247, 208, 0;
+  --accent-secondary: #00f0ff;
+  --accent-secondary-rgb: 0, 240, 255;
+  
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.7);
+  --text-muted: rgba(255, 255, 255, 0.4);
+  
+  --error-color: #ff3366;
+  --success-color: #00f0ff;
+  
+  --border-color: rgba(0, 240, 255, 0.3);
+  --border-accent: #f7d000;
+  
+  --shadow-glow-primary: 0 0 20px rgba(247, 208, 0, 0.2);
+  --shadow-glow-secondary: 0 0 20px rgba(0, 240, 255, 0.3);
+  
+  --font-primary: 'Rajdhani', 'Orbitron', 'Segoe UI', sans-serif;
+  --font-mono: 'Fira Code', 'Monaco', monospace;
+  
+  /* Font Sizes */
+  --font-size-title: 1.4rem;
+  --font-size-subtitle: 0.75rem;
+  --font-size-base: 0.8rem;
+  --font-size-small: 0.7rem;
+  --font-size-button: 0.8rem;
+  --font-size-label: 0.75rem;
+  --font-size-input: 0.8rem;
+  --font-size-code: 0.72rem;
+  
+  /* Spacing */
+  --padding-input: 8px 10px;
+  --padding-button: 8px 14px;
+  --padding-tab: 8px 12px;
+  
+  --border-radius: 4px;
+  --transition-speed: 0.3s;
+}

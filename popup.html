@@ -4,139 +4,299 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LocalStorage & API Helper</title>
+    <title>DevVault</title>
     <link rel="stylesheet" href="popup.css">
 </head>
 
 <body>
     <div class="container">
         <header class="header">
-            <h1>🔧 Dev Helper</h1>
-            <p class="subtitle">LocalStorage & API Tool</p>
+            <div class="header-top">
+                <div class="theme-selector">
+                    <label for="themeSelect" title="เปลี่ยน Theme">🎨</label>
+                    <select id="themeSelect">
+                        <option value="cyberpunk">Cyberpunk</option>
+                        <option value="minimal">Minimal</option>
+                        <option value="fantasy-forest">Fantasy Forest</option>
+                        <option value="low-poly-forest">Low-poly Forest</option>
+                        <option value="black">Black</option>
+                        <option value="purple">Purple</option>
+                        <option value="tokyo-night-storm">Tokyo Night Storm</option>
+                    </select>
+                    <button id="setDefaultTheme" class="btn-set-default" title="ตั้งเป็น Default">⭐</button>
+                </div>
+                <a href="https://streamlabs.com/sl_id_5b533faf-7a77-3f55-b566-9a48b4b7fa55/tip" target="_blank"
+                    class="donate-link donate-link-small">
+                    ☕
+                </a>
+            </div>
+            <div class="header-row">
+                <div class="header-title">
+                    <h1>🔐 DevVault</h1>
+                    <p class="subtitle">LocalStorage & API Tool</p>
+                </div>
+                <div class="header-actions">
+                    <button id="toggleSettings" class="btn btn-icon-header" title="⚙️ Settings">
+                        ⚙️
+                    </button>
+                    <button id="pinBtn" class="btn btn-pin" title="📌 เปิดเป็น Side Panel">
+                        📌
+                    </button>
+                </div>
+            </div>
         </header>
 
-        <!-- Tab Navigation -->
-        <nav class="tab-nav">
-            <button class="tab-btn active" data-tab="localStorage">
-                💾 LocalStorage
-            </button>
-            <button class="tab-btn" data-tab="api">
-                🌐 API
-            </button>
-        </nav>
+        <!-- Main Layout with Sidebar -->
+        <div class="main-layout">
 
-        <!-- LocalStorage Tab -->
-        <section id="localStorage-tab" class="tab-content active">
-            <!-- Saved Keys Dropdown -->
-            <div class="form-group">
-                <label for="savedKeySelect">🔖 เลือก Key ที่บันทึกไว้</label>
-                <div class="input-with-btn">
-                    <select id="savedKeySelect">
-                        <option value="">-- เลือกหรือพิมพ์ใหม่ --</option>
+            <!-- Tab Navigation -->
+            <nav class="tab-nav">
+                <button class="tab-btn active" data-tab="localStorage">
+                    💾 LocalStorage
+                </button>
+                <button class="tab-btn" data-tab="api">
+                    🌐 API
+                </button>
+            </nav>
+
+            <!-- LocalStorage Tab -->
+            <section id="localStorage-tab" class="tab-content active">
+                <!-- LocalStorage Section -->
+                <div class="localstorage-section">
+                    <div class="section-header">
+                        <span>💾 LocalStorage</span>
+                    </div>
+
+                    <!-- Key Input with Datalist (Combo) -->
+                    <div class="form-group">
+                        <label for="storageKey">🔑 Key Name</label>
+                        <div class="input-with-btn">
+                            <input type="text" id="storageKey" list="savedKeysList"
+                                placeholder="พิมพ์หรือเลือกจาก list">
+                            <datalist id="savedKeysList"></datalist>
+                            <button id="saveCurrentKey" class="btn btn-icon" title="บันทึก Key">💾</button>
+                            <button id="deleteSelectedKey" class="btn btn-icon" title="ลบ Key">🗑️</button>
+                        </div>
+                    </div>
+
+                    <div class="button-group">
+                        <button id="getStorage" class="btn btn-primary">
+                            🔍 ดึงค่า
+                        </button>
+                        <button id="getAllStorage" class="btn btn-secondary">
+                            📋 ดึงทั้งหมด
+                        </button>
+                    </div>
+
+                    <!-- Property Selector (shown after fetch) -->
+                    <div id="propertySelector" class="property-selector" style="display: none;">
+                        <div class="form-group">
+                            <label for="propertySelect">🎯 เลือก Property ที่ต้องการ</label>
+                            <select id="propertySelect">
+                                <option value="__ALL__">📦 แสดงทั้งหมด</option>
+                            </select>
+                        </div>
+                        <div class="button-group">
+                            <button id="copySelectedProperty" class="btn btn-copy-large">
+                                📋 Copy ค่าที่เลือก
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="result-section">
+                        <div class="result-header">
+                            <span id="storageResultLabel">ผลลัพธ์</span>
+                            <button id="copyStorage" class="btn btn-copy" title="Copy">
+                                📋 Copy All
+                            </button>
+                        </div>
+                        <pre id="storageResult" class="result-box">รอผลลัพธ์...</pre>
+                    </div>
+            </section>
+
+            <!-- API Tab -->
+            <section id="api-tab" class="tab-content">
+                <!-- API Mode Toggle -->
+                <div class="api-mode-toggle">
+                    <button class="mode-btn active" data-mode="import">📂 Import</button>
+                    <button class="mode-btn" data-mode="manual">✏️ Manual</button>
+                </div>
+
+                <!-- Import Mode -->
+                <div id="importMode" class="api-mode-content active">
+                    <!-- Postman Collection Runner -->
+                    <div class="import-section">
+                        <div class="import-header">
+                            <span>📂 Postman Collection</span>
+                            <input type="file" id="postmanFileInput" accept=".json" style="display: none;">
+                            <button id="importPostmanBtn" class="btn btn-small">Import</button>
+                        </div>
+
+                        <!-- Collection Runner (hidden until import) -->
+                        <div id="collectionRunner" style="display: none;">
+                            <div class="runner-header">
+                                <span id="collectionName" class="collection-name">Collection</span>
+                                <span id="runnerStats" class="runner-stats"></span>
+                            </div>
+
+                            <div class="form-group" style="margin-bottom: 8px;">
+                                <label for="baseUrlInput">🌐 Base URL (แทน {{url}})</label>
+                                <input type="text" id="baseUrlInput" placeholder="https://api.example.com">
+                            </div>
+
+                            <div class="runner-controls">
+                                <button id="runAllBtn" class="btn btn-primary btn-small">🚀 Run All</button>
+                                <button id="clearResultsBtn" class="btn btn-small">🗑️ Clear</button>
+                            </div>
+
+                            <div id="requestList" class="request-list"></div>
+
+                            <!-- Summary -->
+                            <div id="runnerSummary" class="runner-summary" style="display: none;">
+                                <div class="summary-header">📊 Summary</div>
+                                <div class="summary-content">
+                                    <div class="summary-row">
+                                        <span>Total:</span>
+                                        <span id="summaryTotal">0 requests</span>
+                                    </div>
+                                    <div class="summary-row">
+                                        <span>Passed:</span>
+                                        <span id="summaryPassed" class="text-success">0</span>
+                                    </div>
+                                    <div class="summary-row">
+                                        <span>Failed:</span>
+                                        <span id="summaryFailed" class="text-error">0</span>
+                                    </div>
+                                    <div class="summary-row">
+                                        <span>Total Time:</span>
+                                        <span id="summaryTime">0ms</span>
+                                    </div>
+                                    <div class="summary-row">
+                                        <span>Avg Time:</span>
+                                        <span id="summaryAvg">0ms</span>
+                                    </div>
+                                    <div class="summary-row">
+                                        <span>Slowest:</span>
+                                        <span id="summarySlowest">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Manual Mode -->
+                <div id="manualMode" class="api-mode-content" style="display: none;">
+                    <p class="mode-hint">💡 ใช้ <code>{{variable}}</code> ใน URL, Headers, Body</p>
+
+                    <div class="form-group">
+                        <label for="apiMethod">Method</label>
+                        <select id="apiMethod">
+                            <option value="GET">GET</option>
+                            <option value="POST">POST</option>
+                            <option value="PUT">PUT</option>
+                            <option value="DELETE">DELETE</option>
+                            <option value="PATCH">PATCH</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="apiEndpoint">Endpoint URL</label>
+                        <input type="text" id="apiEndpoint" placeholder="{{baseUrl}}/api/endpoint">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="apiHeaders">Headers (JSON)</label>
+                        <textarea id="apiHeaders" rows="2"
+                            placeholder='{"Authorization": "Bearer {{token}}"}'></textarea>
+                    </div>
+
+                    <div class="form-group" id="bodyGroup">
+                        <label for="apiBody">Body (JSON)</label>
+                        <textarea id="apiBody" rows="3" placeholder='{"key": "value"}'></textarea>
+                    </div>
+
+                    <div class="button-group">
+                        <button id="sendApi" class="btn btn-primary">
+                            🚀 ส่ง Request
+                        </button>
+                    </div>
+
+                    <div class="result-section">
+                        <div class="result-header">
+                            <span id="apiStatusText">ผลลัพธ์</span>
+                            <button id="copyApi" class="btn btn-copy" title="Copy">
+                                📋 Copy
+                            </button>
+                        </div>
+                        <pre id="apiResult" class="result-box">รอผลลัพธ์...</pre>
+                    </div>
+
+                    <!-- Saved Endpoints Section -->
+                    <div class="saved-section">
+                        <div class="saved-header">
+                            <span>🔖 Endpoints ที่บันทึกไว้</span>
+                            <button id="saveCurrentEndpoint" class="btn btn-small">+ บันทึก Endpoint</button>
+                        </div>
+                        <div id="savedEndpoints" class="saved-list"></div>
+                    </div>
+                </div>
+            </section>
+
+        </div><!-- end main-content -->
+
+        <!-- Settings Sidebar -->
+        <aside id="settingsSidebar" class="settings-sidebar" style="display: none;">
+            <div class="sidebar-header">
+                <span>⚙️ Settings</span>
+                <button id="closeSidebar" class="btn btn-icon-small">✕</button>
+            </div>
+            <div class="sidebar-content">
+                <!-- Theme Section -->
+                <div class="settings-section">
+                    <div class="settings-section-header">🎨 Theme</div>
+                    <select id="sidebarThemeSelect" class="sidebar-select">
+                        <option value="cyberpunk">Cyberpunk</option>
+                        <option value="minimal">Minimal</option>
+                        <option value="fantasy-forest">Fantasy Forest</option>
+                        <option value="low-poly-forest">Low-poly Forest</option>
+                        <option value="black">Black</option>
+                        <option value="purple">Purple</option>
+                        <option value="tokyo-night-storm">Tokyo Night Storm</option>
                     </select>
-                    <button id="deleteSelectedKey" class="btn btn-icon" title="ลบ Key นี้">🗑️</button>
+                </div>
+
+                <!-- Variables Section -->
+                <div class="settings-section">
+                    <div class="settings-section-header">
+                        🔐 Variables
+                        <button id="sidebarAddBtn" class="btn btn-tiny">+ Add</button>
+                    </div>
+                    <div id="sidebarVariablesList" class="sidebar-variables-list">
+                        <!-- Variables will be populated here -->
+                    </div>
+                    <div id="sidebarAddForm" class="sidebar-add-form" style="display: none;">
+                        <input type="text" id="sidebarVarName" placeholder="Name" class="sidebar-input">
+                        <input type="text" id="sidebarVarValue" placeholder="Value" class="sidebar-input">
+                        <div class="sidebar-form-actions">
+                            <button id="sidebarSaveVar" class="btn btn-small btn-save">Save</button>
+                            <button id="sidebarCancelVar" class="btn btn-small btn-cancel">Cancel</button>
+                        </div>
+                    </div>
+                    <p class="variables-hint">💡 ใช้ <code>{{name}}</code> ใน API</p>
                 </div>
             </div>
+        </aside>
 
-            <!-- Manual Key Input -->
-            <div class="form-group">
-                <label for="storageKey">หรือพิมพ์ Key Name</label>
-                <div class="input-with-btn">
-                    <input type="text" id="storageKey" placeholder="เช่น techserv-oauth-user">
-                    <button id="saveCurrentKey" class="btn btn-icon" title="บันทึก Key">💾</button>
-                </div>
-            </div>
+    </div><!-- end main-layout -->
 
-            <div class="button-group">
-                <button id="getStorage" class="btn btn-primary">
-                    🔍 ดึงค่า
-                </button>
-                <button id="getAllStorage" class="btn btn-secondary">
-                    📋 ดึงทั้งหมด
-                </button>
-            </div>
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
 
-            <!-- Property Selector (shown after fetch) -->
-            <div id="propertySelector" class="property-selector" style="display: none;">
-                <div class="form-group">
-                    <label for="propertySelect">🎯 เลือก Property ที่ต้องการ</label>
-                    <select id="propertySelect">
-                        <option value="__ALL__">📦 แสดงทั้งหมด</option>
-                    </select>
-                </div>
-                <div class="button-group">
-                    <button id="copySelectedProperty" class="btn btn-copy-large">
-                        📋 Copy ค่าที่เลือก
-                    </button>
-                </div>
-            </div>
-
-            <div class="result-section">
-                <div class="result-header">
-                    <span id="storageResultLabel">ผลลัพธ์</span>
-                    <button id="copyStorage" class="btn btn-copy" title="Copy">
-                        📋 Copy All
-                    </button>
-                </div>
-                <pre id="storageResult" class="result-box">รอผลลัพธ์...</pre>
-            </div>
-        </section>
-
-        <!-- API Tab -->
-        <section id="api-tab" class="tab-content">
-            <div class="form-group">
-                <label for="apiMethod">Method</label>
-                <select id="apiMethod">
-                    <option value="GET">GET</option>
-                    <option value="POST">POST</option>
-                    <option value="PUT">PUT</option>
-                    <option value="DELETE">DELETE</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="apiEndpoint">Endpoint URL</label>
-                <input type="text" id="apiEndpoint" placeholder="https://api.example.com/data">
-            </div>
-
-            <div class="form-group">
-                <label for="apiHeaders">Headers (JSON)</label>
-                <textarea id="apiHeaders" rows="2" placeholder='{"Authorization": "Bearer token"}'></textarea>
-            </div>
-
-            <div class="form-group" id="bodyGroup">
-                <label for="apiBody">Body (JSON)</label>
-                <textarea id="apiBody" rows="3" placeholder='{"key": "value"}'></textarea>
-            </div>
-
-            <div class="button-group">
-                <button id="sendApi" class="btn btn-primary">
-                    🚀 ส่ง Request
-                </button>
-            </div>
-
-            <div class="result-section">
-                <div class="result-header">
-                    <span id="apiStatusText">ผลลัพธ์</span>
-                    <button id="copyApi" class="btn btn-copy" title="Copy">
-                        📋 Copy
-                    </button>
-                </div>
-                <pre id="apiResult" class="result-box">รอผลลัพธ์...</pre>
-            </div>
-
-            <!-- Saved Endpoints Section -->
-            <div class="saved-section">
-                <div class="saved-header">
-                    <span>🔖 Endpoints ที่บันทึกไว้</span>
-                    <button id="saveCurrentEndpoint" class="btn btn-small">+ บันทึก Endpoint</button>
-                </div>
-                <div id="savedEndpoints" class="saved-list"></div>
-            </div>
-        </section>
-
-        <!-- Toast Notification -->
-        <div id="toast" class="toast"></div>
+    <!-- Footer with Version -->
+    <footer class="footer-version">
+        <span id="versionText">v1.2.0</span>
+    </footer>
     </div>
 
     <script src="popup.js"></script>

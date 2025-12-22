@@ -1,0 +1,34 @@
+/* ==================== TOKYO NIGHT STORM THEME ==================== */
+/* Based on the popular Tokyo Night Storm color scheme */
+
+[data-theme="tokyo-night-storm"] {
+  --bg-primary: #24283b;
+  --bg-secondary: #1f2335;
+  --bg-tertiary: #292e42;
+  --bg-card: rgba(36, 40, 59, 0.95);
+  --bg-card-hover: rgba(41, 46, 66, 0.98);
+  
+  --accent-primary: #7aa2f7;
+  --accent-primary-rgb: 122, 162, 247;
+  --accent-secondary: #bb9af7;
+  --accent-secondary-rgb: 187, 154, 247;
+  
+  --text-primary: #c0caf5;
+  --text-secondary: rgba(192, 202, 245, 0.8);
+  --text-muted: rgba(192, 202, 245, 0.4);
+  
+  --error-color: #f7768e;
+  --success-color: #9ece6a;
+  
+  --border-color: rgba(122, 162, 247, 0.25);
+  --border-accent: #7aa2f7;
+  
+  --shadow-glow-primary: 0 0 20px rgba(122, 162, 247, 0.2);
+  --shadow-glow-secondary: 0 0 20px rgba(187, 154, 247, 0.15);
+  
+  --font-primary: 'IBM Plex Sans', 'Segoe UI', sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Fira Code', monospace;
+  
+  --border-radius: 6px;
+  --transition-speed: 0.25s;
+}

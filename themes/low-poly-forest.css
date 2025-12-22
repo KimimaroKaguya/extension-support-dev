@@ -1,0 +1,50 @@
+/* ==================== LOW-POLY FOREST THEME ==================== */
+/* Dark mysterious forest with golden/orange geometric accents */
+/* Based on user reference image */
+
+[data-theme="low-poly-forest"] {
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #1f1f1f;
+  --bg-tertiary: #252525;
+  --bg-card: rgba(25, 25, 25, 0.9);
+  --bg-card-hover: rgba(35, 35, 35, 0.95);
+  
+  --accent-primary: #e5a84b;
+  --accent-primary-rgb: 229, 168, 75;
+  --accent-secondary: #d4943a;
+  --accent-secondary-rgb: 212, 148, 58;
+  
+  --text-primary: #f0e6d3;
+  --text-secondary: rgba(240, 230, 211, 0.8);
+  --text-muted: rgba(240, 230, 211, 0.4);
+  
+  --error-color: #c44536;
+  --success-color: #e5a84b;
+  
+  --border-color: rgba(229, 168, 75, 0.25);
+  --border-accent: #e5a84b;
+  
+  --shadow-glow-primary: 0 0 25px rgba(229, 168, 75, 0.2);
+  --shadow-glow-secondary: 0 0 20px rgba(212, 148, 58, 0.15);
+  
+  --font-primary: 'Cinzel', 'Times New Roman', serif;
+  --font-mono: 'Fira Code', 'Courier New', monospace;
+  
+  /* Font Sizes */
+  --font-size-title: 1.35rem;
+  --font-size-subtitle: 0.75rem;
+  --font-size-base: 0.8rem;
+  --font-size-small: 0.7rem;
+  --font-size-button: 0.8rem;
+  --font-size-label: 0.75rem;
+  --font-size-input: 0.8rem;
+  --font-size-code: 0.72rem;
+  
+  /* Spacing */
+  --padding-input: 8px 10px;
+  --padding-button: 8px 14px;
+  --padding-tab: 8px 12px;
+  
+  --border-radius: 2px;
+  --transition-speed: 0.3s;
+}
