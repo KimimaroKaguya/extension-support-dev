@@ -57,36 +57,17 @@
 <body>
     <div class="container">
         <header class="header">
-            <div class="header-top">
-                <div class="theme-selector">
-                    <label for="themeSelect" title="เปลี่ยน Theme">🎨</label>
-                    <select id="themeSelect">
-                        <option value="cyberpunk">Cyberpunk</option>
-                        <option value="minimal">Minimal</option>
-                        <option value="fantasy-forest">Fantasy Forest</option>
-                        <option value="low-poly-forest">Low-poly Forest</option>
-                        <option value="black">Black</option>
-                        <option value="purple">Purple</option>
-                        <option value="tokyo-night-storm">Tokyo Night Storm</option>
-                    </select>
-                    <button id="setDefaultTheme" class="btn-set-default" title="ตั้งเป็น Default">⭐</button>
-                </div>
-                <div class="header-actions">
-                    <button id="toggleSettings" class="btn-icon-header" title="Settings">⚙️</button>
-                    <a href="https://streamlabs.com/sl_id_5b533faf-7a77-3f55-b566-9a48b4b7fa55/tip" target="_blank"
-                        class="donate-link donate-link-small">
-                        ☕
-                    </a>
-                </div>
-            </div>
             <div class="header-row">
                 <div class="header-title">
-                    <h1>� DevVault <span class="pinned-badge">📌 Pinned</span></h1>
+                    <h1>🎲 DevVault <span class="pinned-badge">📌 Pinned</span></h1>
                     <p class="subtitle">LocalStorage & API Tool</p>
                 </div>
-                <button id="unpinBtn" class="btn btn-unpin-text" title="📌 Unpin Side Panel">
-                    📌 Unpin
-                </button>
+                <div class="header-actions">
+                    <button id="unpinBtn" class="btn btn-unpin-text" title="📌 Unpin Side Panel">
+                        📌 Unpin
+                    </button>
+                    <button id="toggleSettings" class="btn-icon-header" title="Settings">⚙️</button>
+                </div>
             </div>
         </header>
 
@@ -276,15 +257,18 @@
                 <div class="settings-section-header">
                     <span>🎨 Theme</span>
                 </div>
-                <select id="sidebarThemeSelect" class="sidebar-select">
-                    <option value="cyberpunk">Cyberpunk</option>
-                    <option value="minimal">Minimal</option>
-                    <option value="fantasy-forest">Fantasy Forest</option>
-                    <option value="low-poly-forest">Low-poly Forest</option>
-                    <option value="black">Black</option>
-                    <option value="purple">Purple</option>
-                    <option value="tokyo-night-storm">Tokyo Night Storm</option>
-                </select>
+                <div style="display: flex; gap: 8px; align-items: center;">
+                    <select id="sidebarThemeSelect" class="sidebar-select" style="flex: 1;">
+                        <option value="cyberpunk">Cyberpunk</option>
+                        <option value="minimal">Minimal</option>
+                        <option value="fantasy-forest">Fantasy Forest</option>
+                        <option value="low-poly-forest">Low-poly Forest</option>
+                        <option value="black">Black</option>
+                        <option value="purple">Purple</option>
+                        <option value="tokyo-night-storm">Tokyo Night Storm</option>
+                    </select>
+                    <button id="setDefaultTheme" class="btn-set-default" title="Set as Default">⭐</button>
+                </div>
             </div>
 
             <!-- Variables Section -->
@@ -304,6 +288,15 @@
                 <div id="sidebarVariablesList" class="sidebar-variables-list"></div>
             </div>
         </aside>
+
+        <!-- Donate Section -->
+        <div class="donate-section">
+            <a href="https://streamlabs.com/sl_id_5b533faf-7a77-3f55-b566-9a48b4b7fa55/tip" target="_blank"
+                class="btn-donate-large">
+                <span>☕</span>
+                <span>Donate (Buy me a coffee)</span>
+            </a>
+        </div>
 
         <!-- Footer with Version -->
         <footer class="footer-version">

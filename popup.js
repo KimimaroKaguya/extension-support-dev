@@ -42,7 +42,7 @@ const importPostmanBtn = document.getElementById("importPostmanBtn");
 const collectionRunner = document.getElementById("collectionRunner");
 const collectionNameEl = document.getElementById("collectionName");
 const runnerStats = document.getElementById("runnerStats");
-const baseUrlInput = document.getElementById("baseUrlInput");
+
 const runAllBtn = document.getElementById("runAllBtn");
 const clearResultsBtn = document.getElementById("clearResultsBtn");
 const requestListEl = document.getElementById("requestList");
@@ -1278,10 +1278,8 @@ async function executeRequest(index) {
   if (itemEl) itemEl.className = "request-item running";
   if (statusEl) statusEl.textContent = "⏳";
   
-  // Replace {{url}} with base URL
-  let url = req.url;
-  const baseUrl = baseUrlInput?.value || "";
-  url = url.replace(/\{\{url\}\}/g, baseUrl);
+  // Substitute variables in URL
+  let url = substituteVariables(req.url);
   
   const startTime = performance.now();
   
